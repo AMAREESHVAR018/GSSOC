@@ -1,0 +1,23 @@
+!pip install kaggle 
+Requirement already satisfied: kaggle in /usr/local/lib/python3.6/dist-packages (1.5 
+Requirement already satisfied: python-dateutil in /usr/local/lib/python3.6/dist-pack 
+Requirement already satisfied: certifi in /usr/local/lib/python3.6/dist-packages (fr 
+Requirement already satisfied: tqdm in /usr/local/lib/python3.6/dist-packages (from 
+Requirement already satisfied: urllib3<1.25,>=1.21.1 in /usr/local/lib/python3.6/dis 
+Requirement already satisfied: python-slugify in /usr/local/lib/python3.6/dist-packa 
+Requirement already satisfied: requests in /usr/local/lib/python3.6/dist-packages (f 
+Requirement already satisfied: six>=1.10 in /usr/local/lib/python3.6/dist-packages ( 
+Requirement already satisfied: text-unidecode>=1.3 in /usr/local/lib/python3.6/dist- 
+Requirement already satisfied: idna<3,>=2.5 in /usr/local/lib/python3.6/dist-package 
+Requirement already satisfied: chardet<4,>=3.0.2 in /usr/local/lib/python3.6/dist-pa
+!pip install keras_tqdm 
+Requirement already satisfied: keras_tqdm in /usr/local/lib/python3.6/dist-packages 
+Requirement already satisfied: Keras in /usr/local/lib/python3.6/dist-packages (from 
+Requirement already satisfied: tqdm in /usr/local/lib/python3.6/dist-packages (from 
+Requirement already satisfied: scipy>=0.14 in /usr/local/lib/python3.6/dist-packages 
+Requirement already satisfied: h5py in /usr/local/lib/python3.6/dist-packages (from 
+Requirement already satisfied: numpy>=1.9.1 in /usr/local/lib/python3.6/dist-package 
+Requirement already satisfied: six>=1.9.0 in /usr/local/lib/python3.6/dist-packages 
+Requirement already satisfied: keras-applications>=1.0.6 in /usr/local/lib/python3.6 
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.6/dist-packages (fro 
+Requirement already satisfied: keras-preprocessing>=1.0.5 in /usr/local/lib/python3.
