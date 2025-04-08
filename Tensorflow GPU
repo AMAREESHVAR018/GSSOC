@@ -1,0 +1,316 @@
+from tensorflow.python.client import device_lib 
+# Check all available devices if GPU is available 
+print(device_lib.list_local_devices()) 
+sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True)) 
+{  
+"nbformat": 4,  
+"nbformat_minor": 0,  
+"metadata": {  
+"colab": {  
+"name": 
+"useofpytesseract.ipynb",  
+"provenance": [],  
+"collapsed_sections": []  
+},  
+"kernelspec": {  
+"name": "python3",  
+"display_name": "Python 3"  
+}  
+},  
+"cells": [  
+{  
+"cell_type": "code",  
+"metadata": {  
+"id": "3Vh5OvRoEfGJ",  
+"colab_type": "code",  
+"colab": {  
+"base_uri": 
+"https://localhost:8080/",  
+"height": 357  
+},  
+"outputId": "12b911f9-80eb
+411a-fbb9-a5bc2fd84de6"  
+},  
+"source": [  
+"!pip install opencv-python\n",  
+"!sudo apt-get install 
+tesseract-ocr\n",  
+"!sudo apt-get install 
+libtesseract-dev\n",  
+"!pip install pytesseract"  
+],  
+"execution_count": null,  
+"outputs": [  
+{  
+"output_type": "stream",  
+"text": [  
+"Requirement already satisfied: 
+opencv-python in 
+/usr/local/lib/python3.6/dist  
+packages (4.1.2.30)\n",  
+"Requirement already satisfied: 
+numpy>=1.11.3 in 
+/usr/local/lib/python3.6/dist  
+packages (from opencv-python) 
+(1.18.5)\n",  
+"Reading package lists... 
+Done\n",  
+"Building dependency tree \n",  
+"Reading state information... 
+Done\n",  
+"tesseract-ocr is already the 
+newest version (4.00~git2288
+10f4998a-2).\n",  
+"The following package was 
+automatically installed and is 
+no longer required:\n",  
+" libnvidia-common-440\n",  
+"Use 'sudo apt autoremove' to 
+remove it.\n",  
+"0 upgraded, 0 newly installed, 
+0 to remove and 43 not 
+upgraded.\n",  
+"Reading package lists... 
+Done\n",  
+"Building dependency tree \n",  
+"Reading state information... 
+Done\n",  
+"libtesseract-dev is already 
+the newest version 
+(4.00~git2288-10f4998a-2).\n",  
+"The following package was 
+automatically installed and is 
+no longer required:\n",  
+" libnvidia-common-440\n",  
+"Use 'sudo apt autoremove' to 
+remove it.\n",  
+"0 upgraded, 0 newly installed, 
+0 to remove and 43 not 
+upgraded.\n",  
+"Requirement already satisfied: 
+pytesseract in 
+/usr/local/lib/python3.6/dist  
+packages (0.3.4)\n",  
+"Requirement already satisfied: 
+Pillow in 
+/usr/local/lib/python3.6/dist
+packages  
+(from pytesseract) (7.0.0)\n"  
+],  
+"name": "stdout"  
+}  
+]  
+},  
+{  
+"cell_type": "code",  
+"metadata": {  
+"id": "Cf86mhytEyNG",  
+"colab_type": "code",  
+"colab": {  
+"base_uri": 
+"https://localhost:8080/",  
+"height": 51  
+},  
+"outputId": "8ea05290-e922
+4a6e-82f3-e5c3cf08c2f8"  
+},  
+"source": [  
+"import cv2\n",  
+"from google.colab import 
+drive\n",  
+"import pytesseract\n",  
+"drive.mount('/content/gdrive')
+\n",  
+"img = cv2.imread('gdrive/My 
+Drive/TcsInternship/spacingOutT
+ ext.gif')\n",  
+"print(\"Loaded\")"  
+],  
+"execution_count": null,  
+"outputs": [  
+{  
+"output_type": "stream",  
+"text": [  
+"Drive already mounted at 
+/content/gdrive; to attempt to 
+forcibly remount, call  
+drive.mount(\"/content/gdrive\"
+ , force_remount=True).\n",  
+"Loaded\n"  
+],  
+"name": "stdout"  
+}  
+]  
+},  
+{  
+"cell_type": "code",  
+"metadata": {  
+"id": "sthXEBfiFr12",  
+"colab_type": "code",  
+"colab": {  
+"base_uri": 
+"https://localhost:8080/",  
+"height": 170  
+},  
+"outputId": "a3a0ec49-892d
+4ffa-8d30-93dd5c437fba"  
+},  
+"source": [  
+"text = 
+pytesseract.image_to_string('gd 
+rive/My  
+Drive/TcsInternship/spacingOutT
+ ext.gif',lang='eng')\n",  
+"print(\"The Text is:\", text)"  
+],  
+"execution_count": null, 
+"outputs": [  
+{  
+"output_type": "stream",  
+"text": [  
+"The Text is: Let's get 
+some\n",  
+"indenting and _ word
+spacing\n",  
+"going. on.\n",  
+"\n",  
+"And how about some\n",  
+"letter-spacing, line-\n",  
+"height, and _ justified\n",  
+"\n",  
+"text-aligment?\n”
+with open('gdrive/My Drive/TcsInternship/HTR_Using_CRNN/Data/words.txt') as f: 
+contents = f.readlines() 
+lines = [line.strip() for line in contents] 
+lines[0] 
+Drive already mounted at /content/gdrive; to attempt to forcibly remount, call drive 
+'a01-000u-00-00 ok 154 408 768 27 51 AT A' 
+max_label_len = 0 
+char_list = "!\"#&'()*+,-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx 
+# string.ascii_letters + string.digits (Chars & Digits) 
+# or 
+# "!\"#&'()*+,-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" 
+print(char_list, len(char_list)) 
+def encode_to_labels(txt): 
+# encoding each output word into digits 
+dig_lst = [] 
+for index, chara in enumerate(txt): 
+dig_lst.append(char_list.index(chara)) 
+return dig_lst 
+!"#&'()*+,-./0123456789:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz 78 
+images = [] 
+labels = [] 
+RECORDS_COUNT = 10000 
+train_images = [] 
+train_labels = [] 
+train_input_length = [] 
+train_label_length = [] 
+train_original_text = [] 
+valid_images = [] 
+valid_labels = [] 
+valid_input_length = [] 
+valid_label_length = [] 
+valid_original_text = [] 
+inputs_length = [] 
+labels_length = [] 
+def process_image(img): 
+""" 
+Converts image to shape (32, 128, 1) & normalize 
+""" 
+w, h = img.shape 
+# 
+#  
+# 
+# 
+_, img = cv2.threshold(img, 
+128, 
+255, 
+cv2.THRESH_BINARY | cv2.THRESH_OTSU) 
+# Aspect Ratio Calculation 
+new_w = 32 
+new_h = int(h * (new_w / w)) 
+img = cv2.resize(img, (new_h, new_w)) 
+w, h = img.shape 
+img = img.astype('float32') 
+# Converts each to (32, 128, 1) 
+if w < 32: 
+add_zeros = np.full((32-w, h), 255) 
+img = np.concatenate((img, add_zeros)) 
+w, h = img.shape 
+if h < 128: 
+add_zeros = np.full((w, 128-h), 255) 
+img = np.concatenate((img, add_zeros), axis=1) 
+w, h = img.shape 
+if h > 128 or w > 32: 
+dim = (128,32) 
+img = cv2.resize(img, dim) 
+img = cv2.subtract(255, img) 
+img = np.expand_dims(img, axis=2) 
+# Normalize 
+img = img / 255 
+return img 
+
+Generate Train and Validation set. 
+
+Here we are using kaggle dataset. Which is unziped file of words.tgz 
+
+for index, line in enumerate(lines): 
+splits = line.split(' ') 
+status = splits[1] 
+if status == 'ok': 
+word_id = splits[0] 
+word = "".join(splits[8:]) 
+splits_id = word_id.split('-') 
+filepath = 'words/{}/{}-{}/{}.png'.format(splits_id[0], 
+splits id[0], 
+# processing on image 
+img = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE) 
+try: 
+img = process_image(img) 
+except: 
+continue 
+# processing on label 
+try: 
+label = encode_to_labels(word) 
+except: 
+continue 
+if index % 10 == 0: 
+valid_images.append(img) 
+valid_labels.append(label) 
+valid_input_length.append(31) 
+valid_label_length.append(len(word)) 
+valid_original_text.append(word) 
+else: 
+train_images.append(img) 
+train_labels.append(label) 
+train_input_length.append(31) 
+train_label_length.append(len(word)) 
+train_original_text.append(word) 
+if len(word) > max_label_len: 
+max_label_len = len(word) 
+if index >= RECORDS_COUNT: 
+break 
+Generate Padded label (padded_label = pad_sequences(labels, maxlen=max_label_len, 
+padding='post', value=len(char_list))) 
+train_padded_label = pad_sequences(train_labels, 
+maxlen=max_label_len, 
+padding='post', 
+value=len(char_list)) 
+valid_padded_label = pad_sequences(valid_labels, 
+maxlen=max_label_len, 
+padding='post', 
+value=len(char_list)) 
+train_padded_label.shape, valid_padded_label.shape 
+((7850, 16), (876, 16)) 
+Convert to numpy array. 
+images = np.asarray(images) 
+inputs_length = np.asarray(inputs_length)  
+labels_length = np.asarray(labels_length) 
+train_images = np.asarray(train_images) 
+train_input_length = np.asarray(train_input_length) 
+train_label_length = np.asarray(train_label_length) 
+valid_images = np.asarray(valid_images) 
+valid_input_length = np.asarray(valid_input_length) 
+valid_label_length = np.asarray(valid_label_length) 
+train_images.shape 
+(7850, 32, 128, 1) 
